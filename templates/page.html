@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block main %}
+<article>
+  <header>
+    <p class="label"><a href="/{{ page.section }}/">{{ page.section | capitalize }}</a></p>
+    <h1>{{ page.title }}</h1>
+    {% if page.summary is defined %}<p class="lede">{{ page.summary }}</p>{% endif %}
+    <dl class="spec">
+      {% for key, label in [("ctf", "CTF"), ("type", "Type"), ("category", "Category"), ("difficulty", "Difficulty"), ("author", "Author"), ("language", "Language"), ("requires", "Requires"), ("license", "License")] %}
+      {% if page[key] is defined %}
+      <div><dt>{{ label }}</dt><dd>{{ page[key] }}</dd></div>
+      {% endif %}
+      {% endfor %}
+      <div><dt>{{ "Source" if page.section == "projects" else "Files" }}</dt><dd><a href="{{ page.repo }}">View on GitHub</a></dd></div>
+    </dl>
+  </header>
+  <div class="prose">
+    {{ page.html | safe }}
+  </div>
+</article>
+{% endblock %}

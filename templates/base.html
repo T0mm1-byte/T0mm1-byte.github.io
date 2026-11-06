@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>{% if title is defined %}{{ title }} · {% endif %}{{ site.handle }}</title>
+<meta name="description" content="{{ site.tagline }}">
+<link rel="stylesheet" href="/css/site.css">
+<link rel="stylesheet" href="/css/code.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/">{{ site.handle }}</a>
+  <nav aria-label="Main">
+    {% for key, label in [("projects", "Projects"), ("challenges", "Challenges"), ("writeups", "Writeups")] %}
+    <a href="/{{ key }}/"{% if nav == key %} aria-current="page"{% endif %}>{{ label }}</a>
+    {% endfor %}
+  </nav>
+</header>
+<main>
+{% block main %}{% endblock %}
+</main>
+<footer class="bottom">
+  <span>{{ site.name }} ({{ site.handle }})</span>
+  <a href="{{ site.github }}">github.com/T0mm1-byte</a>
+</footer>
+</body>
+</html>

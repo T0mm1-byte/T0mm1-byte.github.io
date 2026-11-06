@@ -1,0 +1,5 @@
+<ul class="rows">
+  {% for p in challenges %}
+  <li><a href="{{ p.url }}"><span class="name">{{ p.title }}</span><span class="dim">{{ p.ctf }}</span><span class="dim type">{{ p.category }}</span></a></li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block main %}
+<h1>Writeups</h1>
+<p class="lede">Hardware challenges I solved. Difficulty is my own rating, so it may differ from the author's.</p>
+
+<form class="filters" id="filters" hidden>
+  <label>Type
+    <select name="type">
+      <option value="">All</option>
+      {% for t in types %}<option>{{ t }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Difficulty
+    <select name="difficulty">
+      <option value="">All</option>
+      {% for d in difficulties %}<option>{{ d }}</option>{% endfor %}
+    </select>
+  </label>
+  <output id="count" aria-live="polite"></output>
+</form>
+
+<div class="table">
+<table id="writeups">
+  <thead><tr><th>Challenge</th><th>CTF</th><th>Type</th><th>Difficulty</th></tr></thead>
+  <tbody>
+    {% for p in pages %}
+    <tr data-type="{{ p.type }}" data-difficulty="{{ p.difficulty }}">
+      <td><a href="{{ p.url }}">{{ p.title }}</a></td>
+      <td>{{ p.ctf }}</td>
+      <td>{{ p.type }}</td>
+      <td>{{ p.difficulty }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<script>
+  const form = document.getElementById("filters");
+  const rows = [...document.querySelectorAll("#writeups tbody tr")];
+  const count = document.getElementById("count");
+  function apply() {
+    const type = form.elements.type.value;
+    const difficulty = form.elements.difficulty.value;
+    let shown = 0;
+    for (const row of rows) {
+      const match = (!type || row.dataset.type === type) && (!difficulty || row.dataset.difficulty === difficulty);
+      row.hidden = !match;
+      if (match) shown++;
+    }
+    count.textContent = `${shown} of ${rows.length}`;
+  }
+  form.hidden = false;
+  form.addEventListener("change", apply);
+  apply();
+</script>
+{% endblock %}

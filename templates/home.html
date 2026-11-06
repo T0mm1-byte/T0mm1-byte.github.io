@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="hero">
+  <h1>{{ site.name }}</h1>
+  <p class="lede">{{ site.tagline }}</p>
+  <figure class="trace">
+    <svg viewBox="0 0 {{ trace.width }} 62" role="img" aria-label="The UART waveform of the text {{ site.handle }}">
+      <polyline points="{{ trace.path }}"/>
+      {% for x, char in trace.labels %}
+      <text x="{{ x }}" y="56" text-anchor="middle">{{ char }}</text>
+      {% endfor %}
+    </svg>
+    <figcaption>"{{ site.handle }}" on the wire: UART 8N1, LSB first</figcaption>
+  </figure>
+</section>
+
+<section class="prose">
+  {{ about | safe }}
+</section>
+
+<section>
+  <h2 class="label">Contact</h2>
+  <dl class="spec">
+    <div><dt>GitHub</dt><dd><a href="{{ site.github }}">github.com/T0mm1-byte</a></dd></div>
+    <div><dt>LinkedIn</dt><dd><a href="{{ site.linkedin }}">linkedin.com/in/tommaso-casti</a></dd></div>
+  </dl>
+</section>
+
+<section class="reach">
+  <p>Feel free to reach out for anything!</p>
+  <a href="mailto:{{ site.email }}">Send me an email →</a>
+</section>
+{% endblock %}

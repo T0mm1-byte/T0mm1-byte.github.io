@@ -1,0 +1,5 @@
+<ul class="rows">
+  {% for p in projects %}
+  <li><a href="{{ p.url }}"><span class="name">{{ p.title }}</span><span class="dim wide">{{ p.summary }}</span></a></li>
+  {% endfor %}
+</ul>
